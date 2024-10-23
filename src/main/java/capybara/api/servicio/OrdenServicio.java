@@ -6,6 +6,9 @@ import capybara.api.repositorio.CabeceraOrdenRepository;
 import capybara.api.repositorio.CuerpoOrdenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,14 +54,13 @@ public class OrdenServicio {
         return cuerpoOrdenRepository.findByCabeceraOrden_NumOrden(numOrden);
     }
 
-    public CuerpoOrden addCuerpoToCabecera(Long numOrden, CuerpoOrden cuerpoOrden) {
+    @PostMapping("/api/ordenes/{numOrden}/cuerpos")
+    public CuerpoOrden addCuerpoToCabecera(@PathVariable Long numOrden, @RequestBody CuerpoOrden cuerpoOrden) {
         CabeceraOrden cabecera = cabeceraOrdenRepository.findById(numOrden)
                 .orElseThrow(() -> new RuntimeException("Cabecera no encontrada"));
+        
         cuerpoOrden.setCabeceraOrden(cabecera);
         return cuerpoOrdenRepository.save(cuerpoOrden);
     }
-
-    public List<CuerpoOrden> getCuerposById(Long numOrden) {
-        return List.of();
-    }
+    
 }

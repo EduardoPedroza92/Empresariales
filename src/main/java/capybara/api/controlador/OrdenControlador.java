@@ -40,14 +40,14 @@ public class OrdenControlador {
         OrdenServicio.deleteCabecera(numOrden);
     }
 
-    @GetMapping("/cabecera/{numOrden}")
-    public List<CuerpoOrden> getCuerpoByCabecera(@PathVariable Long numOrden) {
+    @GetMapping("/{numOrden}/cuerpos")
+    public List<CuerpoOrden> getCuerposByCabecera(@PathVariable Long numOrden) {
         return OrdenServicio.getCuerposByCabecera(numOrden);
     }
 
-    @PostMapping("/cabecera/{numOrden}")
+    @PostMapping("/{numOrden}/cuerpos")
     public CuerpoOrden addCuerpoToCabecera(@PathVariable Long numOrden, @RequestBody CuerpoOrden cuerpoOrden) {
-        System.out.println(OrdenServicio.addCuerpoToCabecera(numOrden, cuerpoOrden));
         return OrdenServicio.addCuerpoToCabecera(numOrden, cuerpoOrden);
     }
+    
 }

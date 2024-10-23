@@ -5,19 +5,49 @@ import jakarta.persistence.*;
 
 @Entity
 public class CuerpoOrden {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCuerpo;
+
     private Long idProducto;
     private String nombreProducto;
     private Integer cantidadProducto;
 
     @ManyToOne
-    @JoinColumn(name = "numOrden")
+    @JoinColumn(name = "num_orden")
     private CabeceraOrden cabeceraOrden;
 
-    public void setCabeceraOrden(CabeceraOrden cabecera) {
+ 
+    public Long getIdProducto() {
+        return idProducto;
     }
 
-    // Getters, Setters, Constructors (usando Lombok si está configurado)
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public Integer getCantidadProducto() {
+        return cantidadProducto;
+    }
+
+    public void setCantidadProducto(Integer cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
+
+    public CabeceraOrden getCabeceraOrden() {
+        return cabeceraOrden;
+    }
+
+    public void setCabeceraOrden(CabeceraOrden cabeceraOrden) {
+        this.cabeceraOrden = cabeceraOrden;
+    }
 }
