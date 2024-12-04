@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ordenes")
+@RequestMapping("/orden")
 public class OrdenControlador {
     @Autowired
     private OrdenServicio OrdenServicio;
