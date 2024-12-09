@@ -51,28 +51,23 @@ public class OrdenControlador {
         return ordenServicio.addCuerpoToCabecera(numOrden, cuerpoOrden);
     }
 
-    // Nuevo GET: Obtener el total de precio de todos los productos vendidos
-    @GetMapping("/total-precio")
-    public Double obtenerTotalPrecioProductos() {
-        return ordenServicio.obtenerTotalPrecioProductos();
-    }
-
-    // Nuevo GET: Obtener cuánto vendió cada caja
-    @GetMapping("/ventas-por-caja")
-    public Map<String, Double> obtenerVentasPorCaja() {
-        return ordenServicio.obtenerVentasPorCaja();
-    }
 
     // Nuevo GET: Obtener el producto más vendido
     @GetMapping("/producto-mas-vendido")
-    public CuerpoOrden obtenerProductoMasVendido() {
-        return ordenServicio.obtenerProductoMasVendido();
+    public String obtenerNombreProductoMasVendido() {
+        return ordenServicio.obtenerNombreProductoMasVendido();
     }
-
-    // Nuevo GET: Obtener los primeros 5 productos más vendidos
+    
+    //Nuevo GET: Obtener los primeros 5 productos mas vendidos
     @GetMapping("/top-5-productos")
-    public List<CuerpoOrden> obtenerTop5ProductosMasVendidos() {
-        return ordenServicio.obtenerTop5ProductosMasVendidos();
+    public List<String> obtenerTop5NombresProductosMasVendidos() {
+        return ordenServicio.obtenerTop5NombresProductosMasVendidos();
+    }
+    
+    // Nuevo GET para las ganancias totales
+    @GetMapping("/ganancias-totales")
+    public Double obtenerGananciasTotales() {
+        return ordenServicio.obtenerGananciasTotales();
     }
 }
 

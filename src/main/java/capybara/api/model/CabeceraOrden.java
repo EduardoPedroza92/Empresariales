@@ -26,5 +26,4 @@ public class CabeceraOrden {
     private Double propina;
     private LocalDate fecha;
     private LocalTime hora;
-    private String caja; // Nueva propiedad
 }
