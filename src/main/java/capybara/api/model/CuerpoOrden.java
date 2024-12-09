@@ -2,7 +2,6 @@ package capybara.api.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
 public class CuerpoOrden {
 
@@ -50,4 +49,8 @@ public class CuerpoOrden {
     public void setCabeceraOrden(CabeceraOrden cabeceraOrden) {
         this.cabeceraOrden = cabeceraOrden;
     }
+
+    public String getProducto() {
+        return nombreProducto; // Puedes retornar directamente el nombre
+    }    
 }
