@@ -68,10 +68,7 @@ public class OrdenServicio {
 
     // Nuevo método: Obtener el total de precio de todos los productos vendidos
     public Double obtenerTotalPrecioProductos() {
-        List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
-        return cuerposOrden.stream()
-                           .mapToDouble(cuerpo -> cuerpo.getCantidadProducto() * obtenerPrecioProducto(cuerpo.getIdProducto())) // Suponiendo que tienes un método para obtener el precio del producto
-                           .sum();
+        return cabeceraOrdenRepository.obtenerSumaTotalPrecio();
     }
 
     // Nuevo método: Obtener el precio de un producto (esto depende de cómo gestionas el precio, podrías tener una entidad Producto con el precio)

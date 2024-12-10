@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ordenes")
+@RequestMapping("/orden")
 public class OrdenControlador {
     @Autowired
     private OrdenServicio ordenServicio;
@@ -52,7 +52,7 @@ public class OrdenControlador {
     }
 
     // Nuevo GET: Obtener el total de precio de todos los productos vendidos
-    @GetMapping("/total-precio")
+    @GetMapping("/total-ventas")
     public Double obtenerTotalPrecioProductos() {
         return ordenServicio.obtenerTotalPrecioProductos();
     }
