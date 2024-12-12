@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ordenes")
+@RequestMapping("/orden")
 public class OrdenControlador {
     @Autowired
     private OrdenServicio ordenServicio;
@@ -51,6 +51,11 @@ public class OrdenControlador {
         return ordenServicio.addCuerpoToCabecera(numOrden, cuerpoOrden);
     }
 
+    // Nuevo GET: Obtener el total de precio de todos los productos vendidos
+    @GetMapping("/total-ventas")
+    public Double obtenerTotalPrecioProductos() {
+        return ordenServicio.obtenerTotalPrecioProductos();
+    }
 
     // Nuevo GET: Obtener el producto más vendido
     @GetMapping("/producto-mas-vendido")
