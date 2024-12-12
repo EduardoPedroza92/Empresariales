@@ -59,13 +59,13 @@ public class OrdenControlador {
 
     // Nuevo GET: Obtener el producto más vendido
     @GetMapping("/producto-mas-vendido")
-    public String obtenerNombreProductoMasVendido() {
+    public CuerpoOrden obtenerNombreProductoMasVendido() {
         return ordenServicio.obtenerNombreProductoMasVendido();
     }
     
     //Nuevo GET: Obtener los primeros 5 productos mas vendidos
     @GetMapping("/top-5-productos")
-    public List<String> obtenerTop5NombresProductosMasVendidos() {
+    public List<CuerpoOrden> obtenerTop5NombresProductosMasVendidos() {
         return ordenServicio.obtenerTop5NombresProductosMasVendidos();
     }
     

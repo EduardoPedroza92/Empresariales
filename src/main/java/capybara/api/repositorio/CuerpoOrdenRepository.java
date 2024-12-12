@@ -10,9 +10,9 @@ import java.util.List;
 public interface CuerpoOrdenRepository extends JpaRepository<CuerpoOrden, Long> {
     List<CuerpoOrden> findByCabeceraOrden_NumOrden(Long numOrden);
 
-    // Método para obtener los 5 productos más vendidos (por cantidad)
+    
     List<CuerpoOrden> findTop5ByOrderByCantidadProductoDesc();
     
-    // Método para obtener todos los cuerpos de orden (útil para obtener ventas totales)
+    
     List<CuerpoOrden> findAll();
 }
