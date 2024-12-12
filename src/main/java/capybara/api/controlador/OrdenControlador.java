@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ordenes")
+@RequestMapping("/ordenes")
 public class OrdenControlador {
     @Autowired
     private OrdenServicio ordenServicio;
