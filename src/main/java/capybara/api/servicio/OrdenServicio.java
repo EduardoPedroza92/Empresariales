@@ -71,36 +71,51 @@ public class OrdenServicio {
         return cabeceraOrdenRepository.obtenerSumaTotalPrecio();
     }
 
-    // Nuevo método: Obtener el precio de un producto (esto depende de cómo gestionas el precio, podrías tener una entidad Producto con el precio)
+    // Nuevo método: Obtener el precio de un producto (esto depende de cómo
+    // gestionas el precio, podrías tener una entidad Producto con el precio)
     private Double obtenerPrecioProducto(Long idProducto) {
         // Aquí deberías realizar la lógica para obtener el precio del producto
         // Si tienes una entidad Producto, deberías obtener el precio de ella
         return 10.0; // Solo como ejemplo
     }
 
-    // Nuevo método: Obtener cuánto vendió cada caja
-    public Map<String, Double> obtenerVentasPorCaja() {
-        List<CabeceraOrden> cabeceras = cabeceraOrdenRepository.findAll();
-        Map<String, Double> ventasPorCaja = new HashMap<>();
-        for (CabeceraOrden cabecera : cabeceras) {
-            double totalCaja = cuerpoOrdenRepository.findByCabeceraOrden_NumOrden(cabecera.getNumOrden()).stream()
-                .mapToDouble(cuerpo -> cuerpo.getCantidadProducto() * obtenerPrecioProducto(cuerpo.getIdProducto())) 
-                .sum();
-            ventasPorCaja.put(cabecera.getCaja(), totalCaja);
-        }
-        return ventasPorCaja;
-    }
-
-    // Nuevo método: Obtener el producto más vendido
-    public CuerpoOrden obtenerProductoMasVendido() {
+    // Obtener el producto más vendido
+    public String obtenerNombreProductoMasVendido() {
         List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
+
+        // Encuentra el producto con la mayor cantidad vendida
         return cuerposOrden.stream()
-                           .max(Comparator.comparingInt(CuerpoOrden::getCantidadProducto))
-                           .orElse(null);
+                .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto,
+                        Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
     }
 
-    // Nuevo método: Obtener los 5 productos más vendidos
-    public List<CuerpoOrden> obtenerTop5ProductosMasVendidos() {
-        return cuerpoOrdenRepository.findTop5ByOrderByCantidadProductoDesc();
+    // Obtener el top 5 productos más vendidos
+    public List<String> obtenerTop5NombresProductosMasVendidos() {
+        List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
+
+        // Encuentra los 5 productos con mayor cantidad vendida
+        return cuerposOrden.stream()
+                .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto,
+                        Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(5)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
+
+    // Nuevo método: Ganancias totales
+    public Double obtenerGananciasTotales() {
+        List<CabeceraOrden> cabeceras = cabeceraOrdenRepository.findAll();
+        return cabeceras.stream()
+                .mapToDouble(CabeceraOrden::getTotalPrecio)
+                .sum();
+    }
+
 }
