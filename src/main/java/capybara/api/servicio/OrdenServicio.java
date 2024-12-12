@@ -90,9 +90,9 @@ public String obtenerNombreProductoMasVendido() {
             .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto, Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
             .entrySet()
             .stream()
-            .max(Map.Entry.comparingByValue()) // Encuentra el producto con mayor cantidad
-            .map(Map.Entry::getKey) // Obtén el nombre del producto
-            .orElse(null); // Devuelve null si no hay productos
+            .max(Map.Entry.comparingByValue())
+            .map(Map.Entry::getKey) 
+            .orElse(null); 
     }
 
     // Obtener el top 5 productos más vendidos
@@ -104,9 +104,9 @@ public List<String> obtenerTop5NombresProductosMasVendidos() {
             .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto, Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
             .entrySet()
             .stream()
-            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()) // Ordena por cantidad descendente
-            .limit(5) // Limita a los 5 primeros
-            .map(Map.Entry::getKey) // Obtén los nombres de los productos
+            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .limit(5) 
+            .map(Map.Entry::getKey)
             .collect(Collectors.toList());
     }
     
