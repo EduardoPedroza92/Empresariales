@@ -70,53 +70,65 @@ public class OrdenServicio {
     public Double obtenerTotalPrecioProductos() {
         List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
         return cuerposOrden.stream()
-                           .mapToDouble(cuerpo -> cuerpo.getCantidadProducto() * obtenerPrecioProducto(cuerpo.getIdProducto())) // Suponiendo que tienes un método para obtener el precio del producto
-                           .sum();
+                .mapToDouble(cuerpo -> cuerpo.getCantidadProducto() * obtenerPrecioProducto(cuerpo.getIdProducto())) // Suponiendo
+                                                                                                                     // que
+                                                                                                                     // tienes
+                                                                                                                     // un
+                                                                                                                     // método
+                                                                                                                     // para
+                                                                                                                     // obtener
+                                                                                                                     // el
+                                                                                                                     // precio
+                                                                                                                     // del
+                                                                                                                     // producto
+                .sum();
     }
 
-    // Nuevo método: Obtener el precio de un producto (esto depende de cómo gestionas el precio, podrías tener una entidad Producto con el precio)
+    // Nuevo método: Obtener el precio de un producto (esto depende de cómo
+    // gestionas el precio, podrías tener una entidad Producto con el precio)
     private Double obtenerPrecioProducto(Long idProducto) {
         // Aquí deberías realizar la lógica para obtener el precio del producto
         // Si tienes una entidad Producto, deberías obtener el precio de ella
         return 10.0; // Solo como ejemplo
     }
 
-   // Obtener el producto más vendido
-public String obtenerNombreProductoMasVendido() {
-    List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
+    // Obtener el producto más vendido
+    public String obtenerNombreProductoMasVendido() {
+        List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
 
-    // Encuentra el producto con la mayor cantidad vendida
-    return cuerposOrden.stream()
-            .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto, Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
-            .entrySet()
-            .stream()
-            .max(Map.Entry.comparingByValue())
-            .map(Map.Entry::getKey) 
-            .orElse(null); 
+        // Encuentra el producto con la mayor cantidad vendida
+        return cuerposOrden.stream()
+                .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto,
+                        Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue()) // Encuentra el producto con mayor cantidad
+                .map(Map.Entry::getKey) // Obtén el nombre del producto
+                .orElse(null); // Devuelve null si no hay productos
     }
 
     // Obtener el top 5 productos más vendidos
-public List<String> obtenerTop5NombresProductosMasVendidos() {
-    List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
+    public List<String> obtenerTop5NombresProductosMasVendidos() {
+        List<CuerpoOrden> cuerposOrden = cuerpoOrdenRepository.findAll();
 
-    // Encuentra los 5 productos con mayor cantidad vendida
-    return cuerposOrden.stream()
-            .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto, Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
-            .entrySet()
-            .stream()
-            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-            .limit(5) 
-            .map(Map.Entry::getKey)
-            .collect(Collectors.toList());
+        // Encuentra los 5 productos con mayor cantidad vendida
+        return cuerposOrden.stream()
+                .collect(Collectors.groupingBy(CuerpoOrden::getNombreProducto,
+                        Collectors.summingInt(CuerpoOrden::getCantidadProducto)))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()) // Ordena por cantidad descendente
+                .limit(5) // Limita a los 5 primeros
+                .map(Map.Entry::getKey) // Obtén los nombres de los productos
+                .collect(Collectors.toList());
     }
-    
 
     // Nuevo método: Ganancias totales
-public Double obtenerGananciasTotales() {
-    List<CabeceraOrden> cabeceras = cabeceraOrdenRepository.findAll();
-    return cabeceras.stream()
-                    .mapToDouble(CabeceraOrden::getTotalPrecio)
-                    .sum();
-}
+    public Double obtenerGananciasTotales() {
+        List<CabeceraOrden> cabeceras = cabeceraOrdenRepository.findAll();
+        return cabeceras.stream()
+                .mapToDouble(CabeceraOrden::getTotalPrecio)
+                .sum();
+    }
 
 }
